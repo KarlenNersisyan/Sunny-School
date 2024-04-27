@@ -1,59 +1,49 @@
-//* Components
-import Page from '@/components/common/Page';
-import AppHeader from '@/components/common/AppHeader';
+import { Suspense } from 'react';
+import { Route, Routes } from 'react-router-dom';
+
+import Navbar from '@/components/shared/Navbar/Navbar';
+import PostPageAsync from '@/pages/PostPage/PostPage.async';
+import MainPageAsync from '@/pages/MainPage/MainPage.async';
+import AboutPageAsync from '@/pages/AboutPage/AboutPage.async';
+import LeftSidebar from '@/components/shared/LeftSidebar/LeftSidebar';
+import RightSidebar from '@/components/shared/RightSidebar/RightSidebar';
+import BurgerMenu from '@/components/shared/BurgerMenu/BurgerMenu';
 
 const App = () => {
 	return (
-		<Page className={'relative bg-zinc-50 dark:bg-zinc-950'}>
-			<AppHeader />
-		</Page>
+		<>
+			<BurgerMenu />
+
+			<main className='relative'>
+				<Navbar />
+
+				<div className='flex'>
+					<LeftSidebar />
+
+					<section className='flex min-h-screen flex-1 flex-colpx-6 pb-6 pt-28 xs:px-2 sm:px-10 md:px-6 md:pb-10 bg-zinc-100 dark:bg-zinc-800'>
+						<div className='mx-autho w-full max-w-5xl'>
+							<Suspense fallback={<div>Loading...</div>}>
+								<Routes>
+									<Route
+										path='/'
+										element={<MainPageAsync />}
+									/>
+									<Route
+										path='/posts'
+										element={<PostPageAsync />}
+									/>
+									<Route
+										path='/about'
+										element={<AboutPageAsync />}
+									/>
+								</Routes>
+							</Suspense>
+						</div>
+					</section>
+					<RightSidebar />
+				</div>
+			</main>
+		</>
 	);
-
-	// return (
-	// 	<div className='flex flex-col h-screen'>
-	// 		<nav className='bg-slate-200 dark:bg-slate-500'>
-	// 			<div className='max-w-7xl mx-auto px-2 sm:px-6 lg:px-8'>
-	// 				<div className='flex items-center justify-between h-16'>
-	// 					<div className='flex'>
-	// 						<Link
-	// 							to='/'
-	// 							className='text-zinc-600 px-3 py-2 rounded-md text-md font-semibold'>
-	// 							Main
-	// 						</Link>
-	// 						<Link
-	// 							to='/about'
-	// 							className='text-zinc-600 px-3 py-2 rounded-md text-md font-semibold'>
-	// 							About
-	// 						</Link>
-	// 					</div>
-	// 				</div>
-	// 			</div>
-	// 		</nav>
-
-	// 		<div>
-	// 			<Button
-	// 				className='absolute top-0 right-0 m-2 p-2'
-	// 				onClick={() => setMode(mode === 'dark' ? 'light' : 'dark')}>
-	// 				Change Theme Mode ({mode.toUpperCase()})
-	// 			</Button>
-	// 		</div>
-
-	// 		<div className='flex-grow py-5'>
-	// 			<Suspense fallback={<div>Loading...</div>}>
-	// 				<Routes>
-	// 					<Route
-	// 						path='/'
-	// 						element={<MainPageAsync />}
-	// 					/>
-	// 					<Route
-	// 						path='/about'
-	// 						element={<AboutPageAsync />}
-	// 					/>
-	// 				</Routes>
-	// 			</Suspense>
-	// 		</div>
-	// 	</div>
-	// );
 };
-
 export default App;

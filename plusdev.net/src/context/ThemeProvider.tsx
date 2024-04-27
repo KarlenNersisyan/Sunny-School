@@ -16,13 +16,13 @@ function ThemProvider({ children }: { children: ReactNode }) {
 
 	useEffect(() => {
 		const handleThemeChange = async () => {
-			const actualMode = mode === 'system' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : mode;
+			const actulaMode = mode === 'system' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : mode;
 
-			document.documentElement.classList.remove(actualMode === 'dark' ? 'light' : 'dark');
+			document.documentElement.classList.remove(actulaMode === 'dark' ? 'light' : 'dark');
 
-			document.documentElement.classList.add(actualMode);
+			document.documentElement.classList.add(actulaMode);
 
-			window.localStorage.setItem('theme', actualMode);
+			window.localStorage.setItem('theme', actulaMode);
 		};
 
 		handleThemeChange();
